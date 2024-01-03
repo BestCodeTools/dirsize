@@ -180,12 +180,31 @@ std::uintmax_t calculate_and_show_path_size(const std::filesystem::path &path)
   return total_size;
 }
 
+// print help
+void print_help()
+{
+  std::cout << "Usage: path [options] [path ...]" << std::endl;
+  std::cout << "Options:" << std::endl;
+  std::cout << "  --children Show size of children directories" << std::endl;
+  std::cout << "  --help     Show this help message" << std::endl;
+}
+
 int main(int argc, char **argv)
 {
   // extract paths from command line args, ignoring options (-- and - options)
   std::vector<std::filesystem::path> pathList;
   // argmap
   std::map<std::string, std::string> args;
+
+  // map args
+  map_args(argc, argv, args);
+
+  // if --help option is specified, call print_help and exit
+  if (args["help"] == "true" || args["h"] == "true")
+  {
+    print_help();
+    return 0;
+  }
 
   for (int i = 1; i < argc; ++i)
   {
@@ -205,9 +224,6 @@ int main(int argc, char **argv)
   {
     pathList.emplace_back(".");
   }
-
-  // map args
-  map_args(argc, argv, args);
 
   int current = 0;
 
