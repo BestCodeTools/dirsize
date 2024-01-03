@@ -5,7 +5,7 @@
 #include <string>
 #include <map>
 
-extern const std::string VERSION;
+extern const char *VERSION;
 
 // function declarations
 

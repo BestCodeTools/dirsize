@@ -1,1 +1,3 @@
-const auto VERSION = "0.0.0.1";
+#include <string>
+
+const char *VERSION = "0.0.0.1";

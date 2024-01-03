@@ -25,8 +25,14 @@ $(OUTPUT_DIR):
 	mkdir -p $(OUTPUT_DIR)
 
 # Compile the dirsize program
-dirsize: main.cpp | $(OUTPUT_DIR)
-	g++ -o $(OUTPUT_DIR)/dirsize main.cpp
+dirsize: version.o main.o | $(OUTPUT_DIR)
+	g++ -o $(OUTPUT_DIR)/dirsize main.o version.o
+
+main.o: main.cpp
+	g++ -c main.cpp
+
+version.o: version.cpp
+	g++ -c version.cpp
 
 # Copy the executable to the destination directory
 copy: dirsize
@@ -36,3 +42,4 @@ copy: dirsize
 # Clean the output directory
 clean:
 	rm -rf $(OUTPUT_DIR)/*
+	rm -f *.o
