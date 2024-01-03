@@ -4,6 +4,11 @@
 #include <iostream>
 #include <string>
 #include <map>
+
+extern const std::string VERSION;
+
+// function declarations
+
 std::string bytes_to_str(std::uintmax_t bytes);
 std::vector<std::string> get_directories(const std::string &path);
 void show_progress(int current, int total);
@@ -180,9 +185,17 @@ std::uintmax_t calculate_and_show_path_size(const std::filesystem::path &path)
   return total_size;
 }
 
+// print version
+void print_version()
+{
+  std::cout << "dirsize version " << VERSION << std::endl;
+}
+
 // print help
 void print_help()
 {
+  print_version();
+  std::cout << std::endl;
   std::cout << "Usage: path [options] [path ...]" << std::endl;
   std::cout << "Options:" << std::endl;
   std::cout << "  --children Show size of children directories" << std::endl;
@@ -203,6 +216,13 @@ int main(int argc, char **argv)
   if (args["help"] == "true" || args["h"] == "true")
   {
     print_help();
+    return 0;
+  }
+
+  // if --version option is specified, call print_version and exit
+  if (args["version"] == "true" || args["v"] == "true")
+  {
+    print_version();
     return 0;
   }
 
