@@ -1,20 +1,22 @@
+TARGET_OS := $(or $(OS),Windows) 
+
 # Determine the operating system
-ifeq ($(OS),Windows_NT)
-	OS := Windows
+ifeq ($(TARGET_OS),Windows_NT)
+	TARGET_OS := Windows
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
-		OS := Linux
+		TARGET_OS := Linux
 	endif
 endif
 
 # Set the output directory based on the operating system
-ifeq ($(OS),Windows)
+ifeq ($(TARGET_OS),Windows)
 	OUTPUT_DIR := bin/Windows/release
 	DEST_DIR := C:/dev/cmd-scripts
 else
 	OUTPUT_DIR := bin/Linux/release
-	DEST_DIR := path/to/destination/directory/Linux
+	DEST_DIR := /usr/local/bin
 endif
 
 # Default target
